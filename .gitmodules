@@ -1,0 +1,3 @@
+[submodule "apps/backend"]
+	path = apps/backend
+	url = git@github.com:hndregjoni/junctionx-tirana-sky-saver-backend.git
