@@ -13,6 +13,14 @@ def user_avatar_path(instance, filename):
     return f"avatars/{instance.id}/{filename}"
 
 
+class LoyaltyTier(models.Model):
+    name = models.CharField(max_length=255)
+    minimum_miles = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.name
+
+
 class User(AbstractUser):
     """
     Default custom user model.
@@ -31,6 +39,9 @@ class User(AbstractUser):
         },
     )
     traveller = models.ForeignKey("Traveller", on_delete=models.CASCADE, blank=True, null=True)
+    loyalty_tier = models.ForeignKey("LoyaltyTier", on_delete=models.CASCADE, blank=True, null=True)
+    total_miles = models.PositiveIntegerField(default=0)
+    tokens_available = models.PositiveSmallIntegerField(default=0)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -47,6 +58,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+    def update_loyalty_tier(self):
+        available_tiers = LoyaltyTier.objects.filter(minimum_miles__lte=self.total_miles).order_by('-minimum_miles')
+        if available_tiers.exists():
+            self.loyalty_tier = available_tiers.first()
+            self.save()
 
 
 class Traveller(models.Model):
