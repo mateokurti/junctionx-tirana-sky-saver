@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
 
 from .models import Booking, Ticket, BookedSegment
 
 
 @admin.register(Booking)
-class BookingAdmin(admin.ModelAdmin):
+class BookingAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('booking_reference', 'user')
     list_filter = ('user',)
 
 
 @admin.register(Ticket)
-class TicketAdmin(admin.ModelAdmin):
+class TicketAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = (
         'ticket_number',
         'ticketing_airline',
@@ -23,7 +24,7 @@ class TicketAdmin(admin.ModelAdmin):
 
 
 @admin.register(BookedSegment)
-class BookedSegmentAdmin(admin.ModelAdmin):
+class BookedSegmentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = (
         'id',
         'origin',
