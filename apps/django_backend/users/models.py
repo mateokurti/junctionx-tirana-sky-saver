@@ -18,14 +18,7 @@ class User(AbstractUser):
     Default custom user model.
     """
 
-    class Gender(models.TextChoices):
-        MALE = "m", _("Male")
-        FEMALE = "f", _("Female")
-
     username = None
-    birth_date = models.DateField(null=True, blank=True)
-    gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.MALE)
-    avatar = ResizedImageField(upload_to=user_avatar_path, blank=True, null=True)
     email = models.EmailField(
         _("email address"),
         unique=True,
@@ -37,8 +30,7 @@ class User(AbstractUser):
             "unique": _("A user with that email already exists."),
         },
     )
-    country = CountryField(null=True, blank=True)
-    onboarded = models.BooleanField(default=False, blank=True)
+    traveller = models.ForeignKey("Traveller", on_delete=models.CASCADE, blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -55,3 +47,41 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class Traveller(models.Model):
+    class Salutation(models.TextChoices):
+        MR = "MR", _("Mr")
+        MS = "MS", _("Ms")
+        MRS = "MRS", _("Mrs")
+        CHD = "CHD", _("Chd")
+        INF = "INF", _("Inf")
+
+    class Gender(models.TextChoices):
+        MALE = "m", _("Male")
+        FEMALE = "f", _("Female")
+
+    #  Column(Enum("ADULT", "CHILD", "INFANT", name="passenger_type_enum"), nullable=False)
+    class PassengerType(models.TextChoices):
+        ADULT = "ADULT", _("Adult")
+        CHILD = "CHILD", _("Child")
+        INFANT = "INFANT", _("Infant")
+
+    first_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50)
+    salutation = models.CharField(max_length=3, choices=Salutation.choices, default=Salutation.MR)
+
+    avatar = ResizedImageField(upload_to=user_avatar_path, blank=True, null=True)
+    gender = models.CharField(max_length=1, choices=Gender.choices, default=Gender.MALE)
+    passenger_type = models.CharField(max_length=6, choices=PassengerType.choices, default=PassengerType.ADULT)
+    frequent_flyer_number = models.CharField(max_length=20, blank=True, null=True)
+    # document = models.ForeignKey("Document", on_delete=models.CASCADE, blank=True, null=True)
+
+    street = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=10)
+    country = CountryField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"

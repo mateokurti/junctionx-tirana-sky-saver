@@ -11,10 +11,6 @@ class UserAdmin(auth_admin.UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (
-            _("Personal info"),
-            {"fields": ("gender", "first_name", "last_name", "country")},
-        ),
-        (
             _("Permissions"),
             {
                 "fields": (
@@ -37,6 +33,6 @@ class UserAdmin(auth_admin.UserAdmin):
             },
         ),
     )
-    list_display = ("id", "email", "first_name", "last_name", "gender", "is_superuser")
+    list_display = ("id", "email", "is_superuser")
     ordering = ("email",)
-    search_fields = ("email", "first_name", "last_name")
+    search_fields = ("email",)
