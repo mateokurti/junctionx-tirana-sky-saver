@@ -3,6 +3,8 @@ from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
+from users.models import Traveller
+
 User = get_user_model()
 
 
@@ -19,6 +21,7 @@ class UserAdmin(auth_admin.UserAdmin):
                     "is_superuser",
                     "groups",
                     "user_permissions",
+                    "traveller",
                 ),
             },
         ),
@@ -36,3 +39,22 @@ class UserAdmin(auth_admin.UserAdmin):
     list_display = ("id", "email", "is_superuser")
     ordering = ("email",)
     search_fields = ("email",)
+
+
+@admin.register(Traveller)
+class TravellerAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'salutation',
+        'avatar',
+        'gender',
+        'passenger_type',
+        'frequent_flyer_number',
+        'street',
+        'city',
+        'postal_code',
+        'country',
+    )
