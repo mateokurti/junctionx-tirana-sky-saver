@@ -86,6 +86,8 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "django_backend",
     "users",
+    "bookings",
+    "badges",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
