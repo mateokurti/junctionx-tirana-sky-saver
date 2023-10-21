@@ -1,22 +1,22 @@
 from rest_framework import serializers
 
-from bookings.models import Booking, Ticket, BookedSegment
-from users.serializers import UserAccountSerializer, TravellerSerializer
+from bookings.models import BookedSegment, Booking, Ticket
+from users.serializers import TravellerSerializer, UserAccountSerializer
 
 
 class BookedSegmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookedSegment
-        fields = '__all__'
+        fields = "__all__"
 
 
 class TicketSerializer(serializers.ModelSerializer):
     traveller = TravellerSerializer(read_only=True)
-    booked_segments = BookedSegmentsSerializer(many=True, read_only=True, source='bookedsegment_set')
+    booked_segments = BookedSegmentsSerializer(many=True, read_only=True, source="bookedsegment_set")
 
     class Meta:
         model = Ticket
-        fields = '__all__'
+        fields = "__all__"
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -25,4 +25,4 @@ class BookingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = '__all__'
+        fields = "__all__"

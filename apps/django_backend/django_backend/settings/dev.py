@@ -81,9 +81,7 @@ if LOG_SQL:
         "handlers": ["console"],
     }
 
-SPECTACULAR_SETTINGS["SERVE_PERMISSIONS"] = [  # noqa
-    "rest_framework.permissions.AllowAny"
-]
+SPECTACULAR_SETTINGS["SERVE_PERMISSIONS"] = ["rest_framework.permissions.AllowAny"]  # noqa
 
 QUERYCOUNT = {
     "THRESHOLDS": {

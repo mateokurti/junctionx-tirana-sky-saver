@@ -24,7 +24,7 @@ class Country(models.Model):
     code = models.CharField(max_length=2)
     continent = models.CharField(max_length=2, choices=Continent.choices)
 
-    attractions = models.ManyToManyField(Attraction, through='CountryAttraction')
+    attractions = models.ManyToManyField(Attraction, through="CountryAttraction")
 
     def __str__(self):
         return self.name
@@ -59,7 +59,7 @@ class Badge(models.Model):
     flight_count_strategy = models.ForeignKey(FlightCountStrategy, on_delete=models.CASCADE, null=True)
     miles_count_strategy = models.ForeignKey(MilesCountStrategy, on_delete=models.CASCADE, null=True)
     regional_strategy = models.ForeignKey(RegionalStrategy, on_delete=models.CASCADE, null=True)
-    users = models.ManyToManyField(User, through='BadgeClaim')
+    users = models.ManyToManyField(User, through="BadgeClaim")
 
     def __str__(self):
         return self.name

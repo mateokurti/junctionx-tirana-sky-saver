@@ -6,19 +6,19 @@ from badges.models import Badge, FlightCountStrategy, MilesCountStrategy, Region
 class FlightCountStrategySerializer(serializers.ModelSerializer):
     class Meta:
         model = FlightCountStrategy
-        fields = '__all__'
+        fields = "__all__"
 
 
 class MilesCountStrategySerializer(serializers.ModelSerializer):
     class Meta:
         model = MilesCountStrategy
-        fields = '__all__'
+        fields = "__all__"
 
 
 class RegionalStrategySerializer(serializers.ModelSerializer):
     class Meta:
         model = RegionalStrategy
-        fields = '__all__'
+        fields = "__all__"
 
 
 class BadgeSerializer(serializers.ModelSerializer):
@@ -29,7 +29,7 @@ class BadgeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Badge
-        exclude = ('users',)
+        exclude = ("users",)
 
     def get_claimed(self, obj) -> bool:
-        return BadgeClaim.objects.filter(badge=obj, user=self.context['request'].user).exists()
+        return BadgeClaim.objects.filter(badge=obj, user=self.context["request"].user).exists()

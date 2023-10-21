@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from articles.models import UserArticleInteraction, Article
+from articles.models import Article, UserArticleInteraction
 from articles.serializers import ArticleSerializer
 
 
