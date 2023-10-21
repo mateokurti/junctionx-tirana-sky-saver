@@ -2,39 +2,39 @@
 from django.contrib import admin
 
 from .models import Attraction, Country, FlightCountStrategy, MilesCountStrategy, RegionalStrategy, Badge, BadgeClaim, CountryAttraction
-
+from import_export.admin import ImportExportModelAdmin
 
 @admin.register(Attraction)
-class AttractionAdmin(admin.ModelAdmin):
+class AttractionAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'name', 'description')
     search_fields = ('name',)
 
 
 @admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
+class CountryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'name', 'code', 'continent')
     raw_id_fields = ('attractions',)
     search_fields = ('name',)
 
 
 @admin.register(FlightCountStrategy)
-class FlightCountStrategyAdmin(admin.ModelAdmin):
+class FlightCountStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'count')
 
 
 @admin.register(MilesCountStrategy)
-class MilesCountStrategyAdmin(admin.ModelAdmin):
+class MilesCountStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'count')
 
 
 @admin.register(RegionalStrategy)
-class RegionalStrategyAdmin(admin.ModelAdmin):
+class RegionalStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id',)
     raw_id_fields = ('countries',)
 
 
 @admin.register(Badge)
-class BadgeAdmin(admin.ModelAdmin):
+class BadgeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = (
         'id',
         'name',
@@ -55,12 +55,12 @@ class BadgeAdmin(admin.ModelAdmin):
 
 
 @admin.register(BadgeClaim)
-class BadgeClaimAdmin(admin.ModelAdmin):
+class BadgeClaimAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'user_id', 'badge', 'claimed_date')
     list_filter = ('user_id', 'badge', 'claimed_date')
 
 
 @admin.register(CountryAttraction)
-class CountryAttractionAdmin(admin.ModelAdmin):
+class CountryAttractionAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('id', 'country', 'attraction')
     list_filter = ('country', 'attraction')

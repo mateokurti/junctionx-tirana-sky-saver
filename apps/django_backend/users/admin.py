@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import admin as auth_admin
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from import_export.admin import ImportExportModelAdmin
 
 from users.models import Traveller
 
@@ -9,7 +10,7 @@ User = get_user_model()
 
 
 @admin.register(User)
-class UserAdmin(auth_admin.UserAdmin):
+class UserAdmin(ImportExportModelAdmin, auth_admin.UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (
@@ -42,7 +43,7 @@ class UserAdmin(auth_admin.UserAdmin):
 
 
 @admin.register(Traveller)
-class TravellerAdmin(admin.ModelAdmin):
+class TravellerAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = (
         'id',
         'first_name',
