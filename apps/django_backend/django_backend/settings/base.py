@@ -79,7 +79,6 @@ THIRD_PARTY_APPS = [
     "import_export",
     "drf_spectacular",
     "rest_framework_simplejwt",
-    "import_export",
     "django_countries",
 ]
 
