@@ -55,7 +55,7 @@ class Badge(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     icon_url = models.CharField(max_length=255)
-    tokens = models.IntegerField()
+    tokens = models.PositiveSmallIntegerField()
     flight_count_strategy = models.ForeignKey(FlightCountStrategy, on_delete=models.CASCADE, null=True)
     miles_count_strategy = models.ForeignKey(MilesCountStrategy, on_delete=models.CASCADE, null=True)
     regional_strategy = models.ForeignKey(RegionalStrategy, on_delete=models.CASCADE, null=True)
