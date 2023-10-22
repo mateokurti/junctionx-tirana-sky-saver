@@ -88,6 +88,7 @@ LOCAL_APPS = [
     "articles",
     "bookings",
     "badges",
+    "rewards",
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
