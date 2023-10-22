@@ -6,6 +6,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from bookings.models import BookedSegment
+from bookings.serializers import BookedSegmentsSerializer
 from users.serializers import UserAccountSerializer
 
 User = get_user_model()
@@ -24,4 +26,13 @@ class UserViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericV
     @action(detail=False)
     def me(self, request):
         serializer = UserAccountSerializer(request.user, context={"request": request})
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+    @action(detail=False, methods=["GET"])
+    def flights(self, request):
+        """
+        All booked_segments where booked_segment.traveller.user is the current user
+        """
+
+        serializer = BookedSegmentsSerializer(BookedSegment.objects.filter(traveller__user=request.user), many=True)
         return Response(status=status.HTTP_200_OK, data=serializer.data)

@@ -56,9 +56,9 @@ class Badge(models.Model):
     description = models.CharField(max_length=255)
     icon_url = models.CharField(max_length=255)
     tokens = models.PositiveSmallIntegerField()
-    flight_count_strategy = models.ForeignKey(FlightCountStrategy, on_delete=models.CASCADE, null=True)
-    miles_count_strategy = models.ForeignKey(MilesCountStrategy, on_delete=models.CASCADE, null=True)
-    regional_strategy = models.ForeignKey(RegionalStrategy, on_delete=models.CASCADE, null=True)
+    flight_count_strategy = models.ForeignKey(FlightCountStrategy, on_delete=models.CASCADE, null=True, blank=True)
+    miles_count_strategy = models.ForeignKey(MilesCountStrategy, on_delete=models.CASCADE, null=True, blank=True)
+    regional_strategy = models.ForeignKey(RegionalStrategy, on_delete=models.CASCADE, null=True, blank=True)
     users = models.ManyToManyField(User, through="BadgeClaim")
 
     def __str__(self):

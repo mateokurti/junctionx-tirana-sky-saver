@@ -8,6 +8,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     content = models.TextField()
+    photo = models.ImageField(upload_to="articles", null=True, blank=True)
 
     tokens = models.PositiveSmallIntegerField()
 
