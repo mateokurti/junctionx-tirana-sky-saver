@@ -1,76 +1,66 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import (
-    Attraction,
-    Country,
-    FlightCountStrategy,
-    MilesCountStrategy,
-    RegionalStrategy,
-    Badge,
-    BadgeClaim,
-    CountryAttraction,
-)
-from import_export.admin import ImportExportModelAdmin
+from .models import Attraction, Country, FlightCountStrategy, MilesCountStrategy, RegionalStrategy, Badge, BadgeClaim, CountryAttraction
 
 
 @admin.register(Attraction)
-class AttractionAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "name", "description")
-    search_fields = ("name",)
+class AttractionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'description')
+    search_fields = ('name',)
 
 
 @admin.register(Country)
-class CountryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "name", "code", "continent")
-    raw_id_fields = ("attractions",)
-    search_fields = ("name",)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'code', 'continent')
+    raw_id_fields = ('attractions',)
+    search_fields = ('name',)
 
 
 @admin.register(FlightCountStrategy)
-class FlightCountStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "count")
+class FlightCountStrategyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'count')
 
 
 @admin.register(MilesCountStrategy)
-class MilesCountStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "count")
+class MilesCountStrategyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'count')
 
 
 @admin.register(RegionalStrategy)
-class RegionalStrategyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id",)
-    raw_id_fields = ("countries",)
+class RegionalStrategyAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    raw_id_fields = ('countries',)
 
 
 @admin.register(Badge)
-class BadgeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+class BadgeAdmin(admin.ModelAdmin):
     list_display = (
-        "id",
-        "name",
-        "description",
-        "icon_url",
-        "tokens",
-        "flight_count_strategy_id",
-        "miles_count_strategy_id",
-        "regional_strategy_id",
+        'id',
+        'name',
+        'description',
+        'icon_url',
+        'tokens',
+        'flight_count_strategy',
+        'miles_count_strategy',
+        'regional_strategy',
     )
     list_filter = (
-        "flight_count_strategy_id",
-        "miles_count_strategy_id",
-        "regional_strategy_id",
+        'flight_count_strategy',
+        'miles_count_strategy',
+        'regional_strategy',
     )
-    raw_id_fields = ("users",)
-    search_fields = ("name",)
+    raw_id_fields = ('users',)
+    search_fields = ('name',)
 
 
 @admin.register(BadgeClaim)
-class BadgeClaimAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "user_id", "badge", "claimed_date")
-    list_filter = ("user_id", "badge", "claimed_date")
+class BadgeClaimAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'badge', 'claimed_date')
+    list_filter = ('user', 'badge', 'claimed_date')
 
 
 @admin.register(CountryAttraction)
-class CountryAttractionAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ("id", "country", "attraction")
-    list_filter = ("country", "attraction")
+class CountryAttractionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'country', 'attraction')
+    list_filter = ('country', 'attraction')

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from import_export.admin import ImportExportModelAdmin
 
-from users.models import Traveller
+from users.models import Traveller, LoyaltyTier
 
 User = get_user_model()
 
@@ -59,3 +59,8 @@ class TravellerAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "postal_code",
         "country",
     )
+
+@admin.register(LoyaltyTier)
+class LoyaltyTierAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'minimum_miles')
+    search_fields = ('name',)

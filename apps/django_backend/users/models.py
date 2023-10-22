@@ -74,6 +74,8 @@ class Traveller(models.Model):
         CHD = "CHD", _("Chd")
         INF = "INF", _("Inf")
 
+
+
     class Gender(models.TextChoices):
         MALE = "m", _("Male")
         FEMALE = "f", _("Female")
