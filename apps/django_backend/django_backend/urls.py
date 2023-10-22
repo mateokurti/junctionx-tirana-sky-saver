@@ -17,13 +17,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import include, path
+from django.urls import include, path, re_path
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
 from rest_framework.authtoken.views import obtain_auth_token
+from django.views.static import serve
 
 urlpatterns = [
     path("api/admin/", admin.site.urls),
@@ -43,6 +44,8 @@ urlpatterns = [
         name="redoc",
     ),
     path("api-auth/", include("rest_framework.urls")),
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
